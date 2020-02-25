@@ -21,6 +21,8 @@ abstract class ListItem {}
 class _MovieAppState extends State<MovieApp> {
   MovieBloc _movieBloc = MovieBloc();
   final List<ListItem> _nowPlayingItems = <ListItem>[];
+  final List<ListItem> _popularItems = <ListItem>[];
+  final List<ListItem> _upComingItems = <ListItem>[];
   MovieListResponse _nowPlayingResponse;
   MovieListResponse _popularResponse;
   MovieListResponse _upComingResponse;
@@ -53,27 +55,27 @@ class _MovieAppState extends State<MovieApp> {
               ),
               Container(
                 margin: const EdgeInsets.only(top: 10),
-                height: MediaQuery.of(context).size.height / 3,
+                height: 300,
                 child: StreamBuilder(
                   stream: _movieBloc.nowPlayingStream,
                   builder: (context, snapshot) {
                     if (snapshot.hasData && snapshot.data != null) {
                       _nowPlayingResponse = snapshot.data;
-                      //add header
-                      _nowPlayingItems.add(NowPlayingItemMore());
                       for (var movie in _nowPlayingResponse.results) {
                         _nowPlayingItems.add(NowPlayingItem(movie));
                       }
+                      //add header
+                      _nowPlayingItems.add(NowPlayingItemMore("now_playing"));
                       return ListView.builder(
                           shrinkWrap: false,
                           scrollDirection: Axis.horizontal,
-                          itemCount: _nowPlayingResponse.results.length,
+                          itemCount: _nowPlayingItems.length,
                           itemBuilder: (context, index) {
                             final item = _nowPlayingItems[index];
                             if (item is NowPlayingItem) {
                               return NowPlayingItem(item.movie);
                             } else if (item is NowPlayingItemMore) {
-                              return NowPlayingItemMore();
+                              return NowPlayingItemMore(item._type);
                             } else {
                               return SizedBox();
                             }
@@ -97,13 +99,24 @@ class _MovieAppState extends State<MovieApp> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData && snapshot.data != null) {
                       _popularResponse = snapshot.data;
+                      for (var movie in _popularResponse.results) {
+                        _popularItems.add(NowPlayingItem(movie));
+                      }
+                      //add header
+                      _popularItems.add(NowPlayingItemMore("popular"));
                       return ListView.builder(
                           shrinkWrap: false,
                           scrollDirection: Axis.horizontal,
-                          itemCount: _popularResponse.results.length,
+                          itemCount: _popularItems.length,
                           itemBuilder: (context, index) {
-                            return NowPlayingItem(
-                                _popularResponse.results[index]);
+                            final item = _popularItems[index];
+                            if (item is NowPlayingItem) {
+                              return NowPlayingItem(item.movie);
+                            } else if (item is NowPlayingItemMore) {
+                              return NowPlayingItemMore(item._type);
+                            } else {
+                              return SizedBox();
+                            }
                           });
                     }
                     return SizedBox();
@@ -124,13 +137,24 @@ class _MovieAppState extends State<MovieApp> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData && snapshot.data != null) {
                       _upComingResponse = snapshot.data;
+                      for (var movie in _upComingResponse.results) {
+                        _upComingItems.add(NowPlayingItem(movie));
+                      }
+                      //add header
+                      _upComingItems.add(NowPlayingItemMore("upcoming"));
                       return ListView.builder(
                           shrinkWrap: false,
                           scrollDirection: Axis.horizontal,
-                          itemCount: _upComingResponse.results.length,
+                          itemCount: _upComingItems.length,
                           itemBuilder: (context, index) {
-                            return NowPlayingItem(
-                                _upComingResponse.results[index]);
+                            final item = _upComingItems[index];
+                            if (item is NowPlayingItem) {
+                              return NowPlayingItem(item.movie);
+                            } else if (item is NowPlayingItemMore) {
+                              return NowPlayingItemMore(item._type);
+                            } else {
+                              return SizedBox();
+                            }
                           });
                     }
                     return SizedBox();
@@ -146,26 +170,32 @@ class _MovieAppState extends State<MovieApp> {
 }
 
 class NowPlayingItemMore extends StatelessWidget implements ListItem {
+  final String _type;
+
+  NowPlayingItemMore(this._type);
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return InkWell(
       onTap: () {},
-      child: Container(
-        margin: const EdgeInsets.all(5),
-        height: MediaQuery.of(context).size.height / 5,
-        width: MediaQuery.of(context).size.width / 2.2,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              color: HexToColor("#FECB2F")),
-          child: Text(
-            "MORE",
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
+      child: Wrap(
+        children: <Widget>[
+          Container(
+              margin: const EdgeInsets.all(5),
+              width: MediaQuery.of(context).size.width / 2.2,
+              height: MediaQuery.of(context).size.height / 3,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  color: HexToColor("#FECB2F")),
+              child: Center(
+                child: Text(
+                  "MORE",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ))
+        ],
       ),
     );
   }
@@ -183,13 +213,11 @@ class NowPlayingItem extends StatelessWidget implements ListItem {
       onTap: () {},
       child: Container(
         margin: const EdgeInsets.all(5),
-        height: MediaQuery.of(context).size.height / 3,
         width: MediaQuery.of(context).size.width / 2.2,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
         child: Wrap(
           children: <Widget>[
             Container(
-              width: double.maxFinite,
               height: MediaQuery.of(context).size.height / 3,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),

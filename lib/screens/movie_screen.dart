@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movie_app/blocs/movie_bloc.dart';
 import 'package:movie_app/components/constants.dart';
 import 'package:movie_app/components/hex_to_color.dart';
@@ -65,7 +66,7 @@ class _MovieAppState extends State<MovieApp> {
                         _nowPlayingItems.add(NowPlayingItem(movie));
                       }
                       //add header
-                      _nowPlayingItems.add(NowPlayingItemMore("now_playing"));
+                      _nowPlayingItems.add(MovieItemMore("now_playing"));
                       return ListView.builder(
                           shrinkWrap: false,
                           scrollDirection: Axis.horizontal,
@@ -74,8 +75,8 @@ class _MovieAppState extends State<MovieApp> {
                             final item = _nowPlayingItems[index];
                             if (item is NowPlayingItem) {
                               return NowPlayingItem(item.movie);
-                            } else if (item is NowPlayingItemMore) {
-                              return NowPlayingItemMore(item._type);
+                            } else if (item is MovieItemMore) {
+                              return MovieItemMore(item._type);
                             } else {
                               return SizedBox();
                             }
@@ -103,7 +104,7 @@ class _MovieAppState extends State<MovieApp> {
                         _popularItems.add(NowPlayingItem(movie));
                       }
                       //add header
-                      _popularItems.add(NowPlayingItemMore("popular"));
+                      _popularItems.add(MovieItemMore("popular"));
                       return ListView.builder(
                           shrinkWrap: false,
                           scrollDirection: Axis.horizontal,
@@ -111,9 +112,9 @@ class _MovieAppState extends State<MovieApp> {
                           itemBuilder: (context, index) {
                             final item = _popularItems[index];
                             if (item is NowPlayingItem) {
-                              return NowPlayingItem(item.movie);
-                            } else if (item is NowPlayingItemMore) {
-                              return NowPlayingItemMore(item._type);
+                              return PopularMovieItem(item.movie);
+                            } else if (item is MovieItemMore) {
+                              return MovieItemMore(item._type);
                             } else {
                               return SizedBox();
                             }
@@ -141,7 +142,7 @@ class _MovieAppState extends State<MovieApp> {
                         _upComingItems.add(NowPlayingItem(movie));
                       }
                       //add header
-                      _upComingItems.add(NowPlayingItemMore("upcoming"));
+                      _upComingItems.add(MovieItemMore("upcoming"));
                       return ListView.builder(
                           shrinkWrap: false,
                           scrollDirection: Axis.horizontal,
@@ -149,9 +150,9 @@ class _MovieAppState extends State<MovieApp> {
                           itemBuilder: (context, index) {
                             final item = _upComingItems[index];
                             if (item is NowPlayingItem) {
-                              return NowPlayingItem(item.movie);
-                            } else if (item is NowPlayingItemMore) {
-                              return NowPlayingItemMore(item._type);
+                              return PopularMovieItem(item.movie);
+                            } else if (item is MovieItemMore) {
+                              return MovieItemMore(item._type);
                             } else {
                               return SizedBox();
                             }
@@ -169,10 +170,10 @@ class _MovieAppState extends State<MovieApp> {
   }
 }
 
-class NowPlayingItemMore extends StatelessWidget implements ListItem {
+class MovieItemMore extends StatelessWidget implements ListItem {
   final String _type;
 
-  NowPlayingItemMore(this._type);
+  MovieItemMore(this._type);
 
   @override
   Widget build(BuildContext context) {
@@ -225,6 +226,75 @@ class NowPlayingItem extends StatelessWidget implements ListItem {
                   image: NetworkImage(Utils.getRealImagePath(
                       image_base_url, IMAGE_SIZE_w500, movie.posterPath)),
                   fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.only(top: 5),
+              child: Text(
+                movie.title.toUpperCase(),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PopularMovieItem extends StatelessWidget implements ListItem {
+  final Movie movie;
+
+  PopularMovieItem(this.movie);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        margin: const EdgeInsets.all(5),
+        width: MediaQuery.of(context).size.width / 2.2,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
+        child: Wrap(
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height / 3,
+              width: MediaQuery.of(context).size.width / 2.2,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                image: DecorationImage(
+                  image: NetworkImage(Utils.getRealImagePath(
+                      image_base_url, IMAGE_SIZE_w500, movie.posterPath)),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Container(
+                margin: const EdgeInsets.all(5),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Stack(
+                      alignment: AlignmentDirectional.center,
+                      children: <Widget>[
+                        SvgPicture.asset(
+                          "assets/images/ic_oval.svg",
+                          height: 30,
+                          width: 30,
+                        ),
+                        Text(
+                          movie.voteAverage.toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),

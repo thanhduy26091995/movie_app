@@ -73,16 +73,14 @@ class _TVAppState extends State<TVApp> {
                 maxLines: 2,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                height: MediaQuery.of(context).size.height / 2,
+              Flexible(
                 child: StreamBuilder(
                   stream: _tvBloc.popularStream,
                   builder: (context, snapshot) {
                     if (snapshot.hasData && snapshot.data != null) {
                       _popularResponse = snapshot.data;
                       return ListView.builder(
-                          physics: ClampingScrollPhysics(),
+                          physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           itemCount: _popularResponse.results.length,

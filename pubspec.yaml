@@ -30,6 +30,7 @@ dependencies:
   shared_preferences: ^0.5.4
   cached_network_image: ^1.1.2+1
   dots_indicator: ^1.0.0
+  flutter_svg: ^0.17.1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
@@ -57,6 +58,7 @@ flutter:
     - assets/images/ic_walkthrough_1.png
     - assets/images/ic_walkthrough_2.png
     - assets/images/ic_walkthrough_3.png
+    - assets/images/ic_oval.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

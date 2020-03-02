@@ -22,6 +22,16 @@ Movie _$MovieFromJson(Map<String, dynamic> json) {
     (json['vote_average'] as num)?.toDouble(),
     json['overview'] as String,
     json['release_date'] as String,
+    (json['budget'] as num)?.toDouble(),
+    json['homepage'] as String,
+    json['imdb_id'] as String,
+    (json['genres'] as List)
+        ?.map(
+            (e) => e == null ? null : Genre.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    json['status'] as String,
+    json['tagline'] as String,
+    json['runtime'] as int,
   );
 }
 
@@ -40,6 +50,13 @@ Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
       'vote_average': instance.voteAverage,
       'overview': instance.overview,
       'release_date': instance.releaseDate,
+      'budget': instance.budget,
+      'homepage': instance.homePage,
+      'imdb_id': instance.imdbId,
+      'genres': instance.genres,
+      'status': instance.status,
+      'tagline': instance.tagLine,
+      'runtime': instance.runtime,
     };
 
 MovieListResponse _$MovieListResponseFromJson(Map<String, dynamic> json) {

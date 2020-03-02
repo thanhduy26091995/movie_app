@@ -6,6 +6,7 @@ import 'package:movie_app/components/constants.dart';
 import 'package:movie_app/components/hex_to_color.dart';
 import 'package:movie_app/components/utils.dart';
 import 'package:movie_app/models/movie.dart';
+import 'package:movie_app/screens/movie_detail.dart';
 
 class MovieApp extends StatefulWidget {
   const MovieApp({Key key}) : super(key: key);
@@ -211,7 +212,12 @@ class NowPlayingItem extends StatelessWidget implements ListItem {
   Widget build(BuildContext context) {
     // TODO: implement build
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MovieDetailScreen(movie.id)));
+      },
       child: Container(
         margin: const EdgeInsets.all(5),
         width: MediaQuery.of(context).size.width / 2.2,

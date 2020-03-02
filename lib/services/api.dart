@@ -90,4 +90,20 @@ class API {
     });
     return tvListResponse;
   }
+
+  Future<Movie> getMovieDetail(int movieId) async {
+    String url = base_url + movie_detail + movieId.toString();
+    Movie movie;
+    Dio dio = Dio();
+    await dio.get(
+        url, queryParameters: {"api_key": API_KEY, "language": "vi-VN"}).then((
+        response) {
+      var parsedJson = jsonDecode(response.toString());
+      print(parsedJson);
+      movie = Movie.fromJson(parsedJson);
+    }).catchError((error) {
+      print(error);
+    });
+    return movie;
+  }
 }

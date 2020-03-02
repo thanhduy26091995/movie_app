@@ -18,6 +18,8 @@ const tv_airing_today = "tv/airing_today";
 
 const tv_popular = "tv/popular";
 
+const movie_detail = "movie/";
+
 class SharedReferencesConstant {
   static const IS_SHOW_WALK_THROUGH = "IS_SHOW_WALK_THROUGH";
 }

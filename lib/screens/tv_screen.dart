@@ -138,7 +138,8 @@ class _TVAppState extends State<TVApp> {
     );
   }
 
-  Widget _popularItem(TV tv) {
+  Widget _popularItem(TV tv)
+  {
     return InkWell(
       onTap: () {},
       child: Container(

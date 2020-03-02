@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55 (78076) - https://sketchapp.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="20.016516%" y1="0%" x2="75.3624174%" y2="86.9751149%" id="linearGradient-1">
+            <stop stop-color="#F99F00" offset="0%"></stop>
+            <stop stop-color="#DB3069" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="English" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.8-Moives-Detail-2" transform="translate(-301.000000, -236.000000)">
+            <g id="View">
+                <g id="Group" transform="translate(301.000000, 236.000000)">
+                    <circle id="Oval-3" fill="url(#linearGradient-1)" cx="27" cy="27" r="27"></circle>
+                    <path d="M29.8092004,21.2185708 L36.2007051,31.4449783 C36.7861258,32.3816514 36.5013794,33.6155521 35.5647064,34.2009728 C35.2468432,34.3996373 34.8795479,34.5049762 34.5047085,34.5049762 L21.7216991,34.5049762 C20.6171296,34.5049762 19.7216991,33.6095457 19.7216991,32.5049762 C19.7216991,32.1301368 19.8270379,31.7628415 20.0257024,31.4449783 L26.4172072,21.2185708 C27.0026278,20.2818977 28.2365286,19.9971514 29.1732017,20.582572 C29.4307399,20.7435335 29.648239,20.9610325 29.8092004,21.2185708 Z" id="Triangle" fill="#FFFFFF" transform="translate(28.113338, 27.391639) rotate(90.000000) translate(-28.113338, -27.391639) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
